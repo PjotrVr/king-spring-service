@@ -6,25 +6,26 @@ public class Product {
     private String category;
     private String description;
     private Double price;
-    private byte[] imageData;
+    private String imageUrl;
 
     // empty constructor
     public Product() { }
 
-    public Product(Long id, String name, String category, String description, Double price) {
+    public Product(Long id, String name, String category, String description, Double price, String imageUrl) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.description = description;
         this.price = price;
+        this.imageUrl = imageUrl;
     }
 
-    public byte[] getImageData() {
-        return imageData;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImageData(byte[] imageData) {
-        this.imageData = imageData;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Double getPrice() {
