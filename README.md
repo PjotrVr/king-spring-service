@@ -32,7 +32,7 @@ Since this is just a REST API and not an actual app, I'd recommend using tools l
 
 If you don't have any of such tools, you can still make requests by using your browser and devtools extension.
 
-By default I'm using port 8080.
+By default, I'm using port 8080.
 
 Available endpoints:
 - **GET /products**: fetches all products
