@@ -46,9 +46,9 @@ Available endpoints:
 
 ## TODO
 Basic:
-- [ ] Implement `/products` endpoint
+- [x] Implement `/products` endpoint
 - [ ] Implement `/products/categories` endpoint
-- [ ] Implement `/products/{id}` endpoint
+- [x] Implement `/products/{id}` endpoint
 - [ ] Implement `/products/filter` endpoint
 - [ ] Implement `/products/search` endpoint
 
