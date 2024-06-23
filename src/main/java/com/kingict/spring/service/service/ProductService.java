@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -43,6 +44,8 @@ public class ProductService {
         return null;
     }
 
+    // save products into cache "products"
+    @Cacheable("products")
     public List<Product> getProducts() {
         List<Product> products = new ArrayList<>();
 
@@ -70,6 +73,9 @@ public class ProductService {
         return products;
     }
 
+    // no cache because method directly depends on "products" cache
+    // if products are not available in cache, then this won't be either
+    // but if they are then this will be too
     public Product getProductById(Long id) {
         List<Product> products = getProducts();
         for (Product product : products) {
@@ -80,6 +86,8 @@ public class ProductService {
         return null;
     }
 
+    // save categories into cache "categories"
+    @Cacheable("categories")
     public List<String> getCategories() {
         List<String> categories = new ArrayList<>();
         try {
