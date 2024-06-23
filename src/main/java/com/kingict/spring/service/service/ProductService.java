@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kingict.spring.service.model.Product;
 import com.kingict.spring.service.repository.ProductRepository;
 import com.kingict.spring.service.utils.ProductScore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,9 +21,12 @@ import java.util.stream.Collectors;
 @Service
 public class ProductService {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
+
     private final ProductRepository productRepository;
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
+
     @Value("${product.service.products.url}")
     private String PRODUCTS_URL;
 
@@ -33,6 +38,7 @@ public class ProductService {
     }
 
     private List<Product> fetchProductsFromApi() {
+        logger.info("Fetching products from API: {}", PRODUCTS_URL);
         String rawJson = restTemplate.getForObject(PRODUCTS_URL, String.class);
         List<Product> products = new ArrayList<>();
 
@@ -53,23 +59,26 @@ public class ProductService {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error parsing product data", e);
         }
 
         return products;
     }
 
-
     public List<Product> getProducts() {
+        logger.info("Fetching all products from the database");
         List<Product> products = productRepository.findAll();
         if (products.isEmpty()) {
+            logger.info("No products found in database, fetching from API");
             products = fetchProductsFromApi();
             productRepository.saveAll(products);
+            logger.info("Products saved to database");
         }
         return products;
     }
 
     public List<String> getCategories() {
+        logger.info("Fetching all categories from the database");
         return productRepository.findAll().stream()
                 .map(Product::getCategory)
                 .distinct()
@@ -77,6 +86,7 @@ public class ProductService {
     }
 
     public Product getProductById(Long id) {
+        logger.info("Fetching product with id {}", id);
         return productRepository.findById(id).orElse(null);
     }
 
@@ -89,6 +99,7 @@ public class ProductService {
     }
 
     public List<Product> filterProducts(String category, Double lowerPrice, Double upperPrice) {
+        logger.info("Filtering products by category = {}, lower price = {}, upper price = {}", category, lowerPrice, upperPrice);
         return productRepository.findAll().stream()
                 .filter(createCategoryPredicate(category))
                 .filter(createPricePredicate(lowerPrice, upperPrice))
@@ -96,6 +107,7 @@ public class ProductService {
     }
 
     public List<Product> searchProducts(String query) {
+        logger.info("Searching products with query: {}", query);
         return productRepository.findAll().stream()
                 .map(product -> new ScoredProduct(product, ProductScore.calculateScore(product, query)))
                 .filter(scoredProduct -> scoredProduct.score > 0)
