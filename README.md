@@ -76,6 +76,6 @@ Basic:
 Nice to have:
 - [ ] Add tests for all endpoints
 - [ ] Add basic authentication and authorization
-- [ ] Add logging 
+- [x] Add logging 
 - [x] Add caching for similar product retrieval
 - [x] Add docker
