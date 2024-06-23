@@ -8,7 +8,7 @@ endpoints from which we can:
 - filter products by price and/or category
 
 ## Prerequisites
-Only things you will need are Java 17 and Maven. <br>
+You have to install [Docker](https://www.docker.com/products/docker-desktop/) and [Docker Compose](https://docs.docker.com/compose/install/).  <br>
 Everything else will be installed automatically by following the steps in the [Installation](#installation) section.
 
 ## Installation
@@ -26,15 +26,16 @@ git clone git@github.com:PjotrVr/king-spring-service.git
 cd king-spring-service
 ```
 
-### 2. Build the project 
+### 2. Start application in a docker container
 ```sh
-./mvnw clean install
+docker-compose up --build -d
 ```
 
-### 3. Run the application
+### 3. Exit application
 ```sh
-./mvnw spring-boot:run
+docker-compose down
 ```
+
 
 ## Usage
 Since this is just a REST API and not an actual app, I'd recommend using tools like [Postman](https://www.postman.com/) or [Insomnia](https://insomnia.rest/) for easier usage.

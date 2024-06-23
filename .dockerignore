@@ -1,0 +1,16 @@
+target/
+temp/
+.idea/
+
+# we will use mvnw
+mvnw.cmd 
+
+# ignore git files
+.git
+.gitignore
+.env
+*.md
+*.pdf
+
+# ignore dockerfile
+Dockerfile
