@@ -37,3 +37,6 @@ King_Akademija_2024_DEV_test.pdf
 
 ### Temporary Folder ###
 temp/
+
+### H2 Database ###
+*.db
