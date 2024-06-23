@@ -40,3 +40,6 @@ temp/
 
 ### H2 Database ###
 *.db
+
+### Logs ###
+logs/
