@@ -26,7 +26,7 @@ git clone git@github.com:PjotrVr/king-spring-service.git
 cd king-spring-service
 ```
 
-### 2. Start application in a docker container
+### 2. Start application in a docker container (detach mode)
 ```sh
 docker-compose up --build -d
 ```
@@ -71,3 +71,4 @@ Nice to have:
 - [ ] Add basic authentication and authorization
 - [ ] Add logging 
 - [ ] Add caching for similar product retrieval
+- [x] Add docker
