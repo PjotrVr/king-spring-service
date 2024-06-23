@@ -44,7 +44,7 @@ If you don't have any of such tools, you can still make requests by using your b
 Available endpoints:
 - **GET /products**: fetches all products
 - **GET /products/categories**: fetches all categories
-- **GET /products/{id}**: fetches specific product by its id, if it doesn't exist then returns 404 NOT FOUND status
+- **GET /products/{id}**: fetches specific product by its id if it exists
 - **GET /products/filter&{filter}**: fetches all products and then filters them by category and price range
 - **GET /products/search&{query}**: fetches all products and returns sorted list based on query-to-product matching algorithm
 
