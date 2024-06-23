@@ -36,7 +36,6 @@ docker-compose up --build -d
 docker-compose down
 ```
 
-
 ## Usage
 Since this is just a REST API and not an actual app, I'd recommend using tools like [Postman](https://www.postman.com/) or [Insomnia](https://insomnia.rest/) for easier usage.
 
@@ -46,11 +45,7 @@ Available endpoints:
 - **GET /products**: fetches all products
 - **GET /products/categories**: fetches all categories
 - **GET /products/{id}**: fetches specific product by its id, if it doesn't exist then returns 404 NOT FOUND status
-- **GET /products/filter**: fetches all products, but filters them by two criteria that are specified inside request body in JSON format
-    - **categories**: list of categories that will be included 
-    - **price**:
-      - **lower**: lower bound for price, by default it is 0
-      - **upper**: upper bound for a price, by default it is infinity
+- **GET /products/filter**: fetches all products and then filters them by category and price range
 
 ## Configuration
 Everything that is configurable is inside .env file.
@@ -63,7 +58,7 @@ Basic:
 - [x] Implement `/products` endpoint
 - [x] Implement `/products/categories` endpoint
 - [x] Implement `/products/{id}` endpoint
-- [ ] Implement `/products/filter` endpoint
+- [x] Implement `/products/filter` endpoint
 - [ ] Implement `/products/search` endpoint
 
 Nice to have:
