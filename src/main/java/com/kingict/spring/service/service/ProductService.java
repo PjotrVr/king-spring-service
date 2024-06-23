@@ -1,23 +1,15 @@
 package com.kingict.spring.service.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kingict.spring.service.model.Product;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+import com.kingict.spring.service.utils.ProductScore;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
 
 @Service
 public class ProductService {
@@ -38,14 +30,7 @@ public class ProductService {
     }
 
     public Product getProductById(Long id) {
-        List<Product> products = getProducts();
-
-        for (Product product : products) {
-            if (product.getId().equals(id)) {
-                return product;
-            }
-        }
-        return null;
+        return getProducts().stream().filter(product -> product.getId().equals(id)).findFirst().orElse(null);
     }
 
     private Predicate<Product> createCategoryPredicate(String category) {
@@ -63,5 +48,22 @@ public class ProductService {
                 .filter(createCategoryPredicate(category))
                 .filter(createPricePredicate(lowerPrice, upperPrice))
                 .toList();
+    }
+
+    public List<Product> searchProducts(String query) {
+        return getProducts().stream()
+                .map(product -> new ScoredProduct(product, ProductScore.calculateScore(product, query)))
+                .filter(scoredProduct -> scoredProduct.score > 0)
+                .sorted(Comparator.comparingInt(ScoredProduct::score).reversed())
+                .map(ScoredProduct::product)
+                .collect(Collectors.toList());
+    }
+
+    private record ScoredProduct(Product product, int score) {
+        public ScoredProduct {
+            if (score < 0) {
+                throw new IllegalArgumentException("Score cannot be less than zero");
+            }
+        }
     }
 }

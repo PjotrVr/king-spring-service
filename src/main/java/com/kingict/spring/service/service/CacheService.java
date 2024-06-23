@@ -20,10 +20,10 @@ import java.util.List;
 @Service
 public class CacheService {
     @Value("${product.service.products.url}")
-    private static String PRODUCTS_URL;
+    private String PRODUCTS_URL;
 
     @Value("${product.service.categories.url}")
-    private static String CATEGORIES_URL;
+    private String CATEGORIES_URL;
 
     private final CloseableHttpClient httpClient;
     private final ObjectMapper objectMapper;
