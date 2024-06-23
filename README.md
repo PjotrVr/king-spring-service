@@ -16,24 +16,26 @@ Everything else will be installed automatically by following the steps in the [I
     
 With GitHub account:   
 ```sh
-    git clone https://github.com/PjotrVr/king-spring-service
-    cd king-spring-service
+git clone https://github.com/PjotrVr/king-spring-service
+cd king-spring-service
 ```
+
 Or with SSH:
 ```sh
-  git clone git@github.com:PjotrVr/king-spring-service.git
-  cd king-spring-service
+git clone git@github.com:PjotrVr/king-spring-service.git
+cd king-spring-service
 ```
 
 2. Build the project 
 ```sh
-    ./mvnw clean install
+./mvnw clean install
 ```
 
 3. Run the application
 ```sh
-    ./mvnw spring-boot:run
+./mvnw spring-boot:run
 ```
+
 ## Usage
 Since this is just a REST API and not an actual app, I'd recommend using tools like [Postman](https://www.postman.com/) or [Insomnia](https://insomnia.rest/) for easier usage.
 
