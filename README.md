@@ -58,6 +58,7 @@ Parameters that you can change:
 - **DB_NAME**: database name, **DEFAULT**: springdb 
 - **DB_USERNAME**: database username, **DEFAULT**: admin
 - **DB_PASSWORD**: database password, **DEFAULT**: admin
+- **LOG_FILE**: name of logging file, **DEFAULT**: application.log
 
 By default, you can access database through h2 console.
 
