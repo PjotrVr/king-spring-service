@@ -59,7 +59,7 @@ Basic:
 - [x] Implement `/products/categories` endpoint
 - [x] Implement `/products/{id}` endpoint
 - [x] Implement `/products/filter` endpoint
-- [ ] Implement `/products/search` endpoint
+- [x] Implement `/products/search` endpoint
 
 Nice to have:
 - [ ] Add tests for all endpoints
