@@ -1,7 +1,7 @@
 # API Documentation
 ## Endpoints
 
-### 1. List All Products
+### 1. List all products
 
 **URL:** `/products`  
 **Method:** `GET`  
@@ -23,15 +23,15 @@ Request: `/products`
 ]
 ```
 
-### 2. Get Product by ID
+### 2. Get product by id
 
 **URL:** `/products/{id}`  
 **Method:** `GET`  
-**Description:** Retrieves details of a single product specified by its ID.
+**Description:** Retrieves details of a single product specified by its id.
 
 #### URL Parameters
 
--   `id` (integer): The ID of the product.
+-   `id` (integer): The id of the product.
 
 #### Request and response example
 Request: `/products/3`
@@ -46,10 +46,10 @@ Request: `/products/3`
 }
 ```
 
-### 3. List All Categories
+### 3. List all categories
 **URL:** `/products/categories`  
 **Method:** `GET`  
-**Description:** Retrieves a list of all product categories.
+**Description:** Retrieves a list of all distinct product categories.
 
 #### Request and response example
 Request: `/products/categories`
@@ -61,13 +61,13 @@ Request: `/products/categories`
 ]
 ```
 
-### 4. Filter Products
+### 4. Filter products
 
 **URL:** `/products/filter`  
 **Method:** `GET`  
 **Description:** Retrieves products filtered by category and/or price range.
 
-#### Query Parameters
+#### Query parameters
 
 -   `category` (string, optional): The category to filter by.
 -   `lower` (number, optional): The lower bound of the price range. Default is 0.
@@ -90,13 +90,13 @@ Request: `/products/filter?category=beauty&lower=2&upper=100`
 ]
 ```
 
-### 5. Search Products
+### 5. Search products
 
 **URL:** `/products/search`  
 **Method:** `GET`  
 **Description:** Searches products by matching given query and returning sorted list  of (from most matched to least matched) products.
 
-#### Query Parameters
+#### Query parameters
 
 -   `query` (string): The search query.
 
