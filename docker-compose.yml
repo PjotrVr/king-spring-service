@@ -10,3 +10,11 @@ services:
             - DB_NAME=${DB_NAME}
             - DB_USERNAME=${DB_USERNAME}
             - DB_PASSWORD=${DB_PASSWORD}
+            - LOG_FILE=${LOG_FILE}
+        volumes:
+            - db_data:/app/db
+            - logs:/app/logs
+
+volumes:
+    db_data:
+    logs:
