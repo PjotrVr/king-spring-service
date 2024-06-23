@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -104,12 +105,20 @@ public class ProductService {
         return categories;
     }
 
-    public List<Product> filterProducts(String category, Double lower, Double upper) {
+    private Predicate<Product> createCategoryPredicate(String category) {
+        return product -> category == null || category.isEmpty() || product.getCategory().equals(category);
+    }
+
+    private Predicate<Product> createPricePredicate(Double lowerPrice, Double upperPrice) {
+        return product -> product.getPrice() >= lowerPrice && product.getPrice() <= upperPrice;
+    }
+
+    public List<Product> filterProducts(String category, Double lowerPrice, Double upperPrice) {
         List<Product> allProducts = getProducts();
 
         return allProducts.stream()
-                .filter(product -> category == null || category.isEmpty() || product.getCategory().equals(category))
-                .filter(product -> product.getPrice() >= lower && product.getPrice() <= upper)
+                .filter(createCategoryPredicate(category))
+                .filter(createPricePredicate(lowerPrice, upperPrice))
                 .toList();
     }
 }
