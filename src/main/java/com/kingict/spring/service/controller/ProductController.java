@@ -38,4 +38,8 @@ public class ProductController {
         return productService.getProductById(id);
     }
 
+    @GetMapping("/categories")
+    public List<String> getCategories() {
+        return productService.getCategories();
+    }
 }

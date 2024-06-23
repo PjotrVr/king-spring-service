@@ -79,4 +79,19 @@ public class ProductService {
         }
         return null;
     }
+
+    public List<String> getCategories() {
+        List<String> categories = new ArrayList<>();
+        try {
+            String rawJson = fetchJsonData(CATEGORIES_URL);
+            JsonNode rootNode = objectMapper.readTree(rawJson);
+            for (JsonNode categoryNode : rootNode) {
+                categories.add(categoryNode.path("name").asText());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return categories;
+    }
 }
