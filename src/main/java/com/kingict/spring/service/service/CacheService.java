@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +19,12 @@ import java.util.List;
 
 @Service
 public class CacheService {
-    private static final String PRODUCTS_URL = "https://dummyjson.com/products";
-    private static final String CATEGORIES_URL = "https://dummyjson.com/products/categories";
+    @Value("${product.service.products.url}")
+    private static String PRODUCTS_URL;
+
+    @Value("${product.service.categories.url}")
+    private static String CATEGORIES_URL;
+
     private final CloseableHttpClient httpClient;
     private final ObjectMapper objectMapper;
 
