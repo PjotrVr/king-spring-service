@@ -131,7 +131,7 @@ Request: `/products/search?query=red+finish`
 ]
 ```
 
-Explanation behind sorting order:
+Here is an explanation behind results older.
 
 Query text was `"red finish"`.
 
