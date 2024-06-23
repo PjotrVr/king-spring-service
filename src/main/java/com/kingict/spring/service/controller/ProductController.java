@@ -108,7 +108,7 @@ public class ProductController {
         logger.info("Searching products with query: {}", query);
         List<Product> searchResults = productService.searchProducts(query);
         if (searchResults.isEmpty()) {
-            logger.info("No products found for the search query: {}", query);
+            logger.info("No products found for query: {}", query);
             return ResponseEntity.noContent().build();
         }
         logger.info("Returning {} search results", searchResults.size());
