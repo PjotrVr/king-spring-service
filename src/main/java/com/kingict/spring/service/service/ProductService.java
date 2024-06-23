@@ -3,6 +3,7 @@ package com.kingict.spring.service.service;
 import com.kingict.spring.service.model.Product;
 import com.kingict.spring.service.utils.ProductScore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -41,6 +42,7 @@ public class ProductService {
         return product -> product.getPrice() >= lowerPrice && product.getPrice() <= upperPrice;
     }
 
+    @Cacheable(value = "filteredProducts", key = "#category + '-' + #lowerPrice + '-' + #upperPrice")
     public List<Product> filterProducts(String category, Double lowerPrice, Double upperPrice) {
         List<Product> allProducts = getProducts();
 
@@ -50,6 +52,7 @@ public class ProductService {
                 .toList();
     }
 
+    @Cacheable(value = "searchedProducts", key = "#query")
     public List<Product> searchProducts(String query) {
         return getProducts().stream()
                 .map(product -> new ScoredProduct(product, ProductScore.calculateScore(product, query)))
