@@ -13,15 +13,13 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/products")
@@ -48,5 +46,36 @@ public class ProductController {
     @GetMapping("/categories")
     public List<String> getCategories() {
         return productService.getCategories();
+    }
+
+    @GetMapping("/filter")
+    public List<Product> filterProducts(
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false, defaultValue = "0") Double lower,
+            @RequestParam(required = false, defaultValue = "" + Double.MAX_VALUE) Double upper) {
+
+        // validate price range
+        if (lower < 0) {
+            throw new IllegalArgumentException("Lower value cannot be negative");
+        }
+        if (upper < lower) {
+            throw new IllegalArgumentException("Upper value cannot be negative");
+        }
+
+        // category validation
+        if (category != null && !category.isEmpty()) {
+            // easier to use if it's case insensitive
+            category = category.toLowerCase();
+            List<String> allCategories = productService.getCategories()
+                    .stream()
+                    .map(String::toLowerCase)
+                    .toList();
+
+            if (!allCategories.contains(category)) {
+                throw new IllegalArgumentException("Invalid category: " + category);
+            }
+        }
+
+        return productService.filterProducts(category, lower, upper);
     }
 }
