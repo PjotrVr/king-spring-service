@@ -12,7 +12,7 @@ Only things you will need are Java 17 and Maven. <br>
 Everything else will be installed automatically by following the steps in the [Installation](#installation) section.
 
 ## Installation
-1. Clone the repository
+### 1. Clone the repository
     
 With GitHub account:   
 ```sh
@@ -26,12 +26,12 @@ git clone git@github.com:PjotrVr/king-spring-service.git
 cd king-spring-service
 ```
 
-2. Build the project 
+### 2. Build the project 
 ```sh
 ./mvnw clean install
 ```
 
-3. Run the application
+### 3. Run the application
 ```sh
 ./mvnw spring-boot:run
 ```
