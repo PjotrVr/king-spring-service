@@ -139,7 +139,7 @@ Tokenizer tokenizes query into `["red", "finish"]`.
 
 Algorithm goes through all products and tokenizes product's name and description.
 
-For each match in the name (eg. there is a word "red" in the product's name), product gets 5 points.
+For each match in the name (eg. there is a word "red" in the product's name), product gets 2 points.
 
 For each match in the description (eg. there is a word "finish" in the product's description), product gets 1 point.
 
