@@ -94,7 +94,7 @@ Request: `/products/filter?category=beauty&lower=2&upper=100`
 
 **URL:** `/products/search`  
 **Method:** `GET`  
-**Description:** Searches products by matching given query and returning sorted (from most matched to least matched) results.
+**Description:** Searches products by matching given query and returning sorted list  of (from most matched to least matched) products.
 
 #### Query Parameters
 
