@@ -54,7 +54,16 @@ For more detailed explanation of endpoints, read [API documentation](API_DOCS.md
 Everything that is configurable is inside .env file.
 
 Parameters that you can change:
-- **port**: port that server will run on, **DEFAULT: 8080**
+- **PORT**: port that server will run on, **DEFAULT**: 8080
+- **DB_NAME**: database name, **DEFAULT**: springdb 
+- **DB_USERNAME**: database username, **DEFAULT**: admin
+- **DB_PASSWORD**: database password, **DEFAULT**: admin
+
+By default, you can access database through h2 console.
+
+Start the application.
+
+Go to `/h2-console` and login with .env information. Don't forget to set path to database.
 
 ## TODO
 Basic:
