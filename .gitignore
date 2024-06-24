@@ -44,3 +44,6 @@ temp/
 ### Logs ###
 logs/
 *.logs
+
+### TODO ###
+TODO.txt
