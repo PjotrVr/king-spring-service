@@ -11,7 +11,7 @@ public class ProductScoreUnitTest {
     private static Product product;
 
     @BeforeAll
-    public static void setUpBeforeClass() throws Exception {
+    public static void initialize() throws Exception {
         product = new Product();
         product.setName("Red Color Nail Polish");
         product.setDescription("Your favorite polisher.");

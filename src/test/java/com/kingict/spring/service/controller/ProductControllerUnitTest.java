@@ -39,14 +39,14 @@ public class ProductControllerUnitTest {
     private List<Product> products;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         expensiveRedProduct = new Product(1L, "Red Product", "Expensive", "It is red.", 100.0, "http://example.com/red_product.jpg");
         Product cheapBlueProduct = new Product(2L, "Blue Product", "Cheap", "It is blue.", 50.0, "http://example.com/blue_product.jpg");
         products = Arrays.asList(expensiveRedProduct, cheapBlueProduct);
     }
 
     @Test
-    void should_return_all_products() throws Exception {
+    public void should_return_all_products() throws Exception {
         when(productService.getProducts()).thenReturn(products);
         MockHttpServletRequestBuilder requestBuilder = get("/products");
         ResultActions resultActions = mockMvc.perform(requestBuilder);
@@ -58,7 +58,7 @@ public class ProductControllerUnitTest {
     }
 
     @Test
-    void should_return_no_content_when_no_products() throws Exception {
+    public void should_return_no_content_when_no_products() throws Exception {
         when(productService.getProducts()).thenReturn(Collections.emptyList());
         MockHttpServletRequestBuilder requestBuilder = get("/products");
         ResultActions resultActions = mockMvc.perform(requestBuilder);
@@ -66,7 +66,7 @@ public class ProductControllerUnitTest {
     }
 
     @Test
-    void should_return_product_by_id() throws Exception {
+    public void should_return_product_by_id() throws Exception {
         when(productService.getProductById(1L)).thenReturn(expensiveRedProduct);
         MockHttpServletRequestBuilder requestBuilder = get("/products/1");
         ResultActions resultActions = mockMvc.perform(requestBuilder);
@@ -76,7 +76,7 @@ public class ProductControllerUnitTest {
     }
 
     @Test
-    void should_return_not_found_for_invalid_product_id() throws Exception {
+    public void should_return_not_found_for_invalid_product_id() throws Exception {
         when(productService.getProductById(1L)).thenReturn(null);
         MockHttpServletRequestBuilder requestBuilder = get("/products/1");
         ResultActions resultActions = mockMvc.perform(requestBuilder);
@@ -84,7 +84,7 @@ public class ProductControllerUnitTest {
     }
 
     @Test
-    void should_return_all_categories() throws Exception {
+    public void should_return_all_categories() throws Exception {
         List<String> categories = Arrays.asList("Expensive", "Cheap");
         when(productService.getCategories()).thenReturn(categories);
         MockHttpServletRequestBuilder requestBuilder = get("/products/categories");
@@ -97,7 +97,7 @@ public class ProductControllerUnitTest {
     }
 
     @Test
-    void should_return_no_content_when_no_categories() throws Exception {
+    public void should_return_no_content_when_no_categories() throws Exception {
         when(productService.getCategories()).thenReturn(Collections.emptyList());
         MockHttpServletRequestBuilder requestBuilder = get("/products/categories");
         ResultActions resultActions = mockMvc.perform(requestBuilder);
@@ -105,7 +105,7 @@ public class ProductControllerUnitTest {
     }
 
     @Test
-    void should_return_expensive_products() throws Exception {
+    public void should_return_expensive_products() throws Exception {
         List<Product> filteredProducts = List.of(expensiveRedProduct);
         when(productService.filterProducts("expensive", 50.0, 150.0)).thenReturn(filteredProducts);
 
@@ -125,7 +125,7 @@ public class ProductControllerUnitTest {
     }
 
     @Test
-    void should_return_bad_request_for_invalid_price_range() throws Exception {
+    public void should_return_bad_request_for_invalid_price_range() throws Exception {
         MockHttpServletRequestBuilder requestBuilder1 = get("/products/filter")
                 .param("lower", "-1")
                 .param("upper", "100");
@@ -140,7 +140,7 @@ public class ProductControllerUnitTest {
     }
 
     @Test
-    void should_return_bad_request_for_invalid_category() throws Exception {
+    public void should_return_bad_request_for_invalid_category() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = get("/products/filter")
                 .param("category", "InvalidCategory");
         ResultActions resultActions = mockMvc.perform(requestBuilder);
@@ -148,7 +148,7 @@ public class ProductControllerUnitTest {
     }
 
     @Test
-    void should_search_red_products() throws Exception {
+    public void should_search_red_products() throws Exception {
         List<Product> searchResults = List.of(expensiveRedProduct);
         when(productService.searchProducts("Red")).thenReturn(searchResults);
         MockHttpServletRequestBuilder requestBuilder = get("/products/search")
@@ -161,7 +161,7 @@ public class ProductControllerUnitTest {
     }
 
     @Test
-    void should_return_bad_request_for_empty_search_query() throws Exception {
+    public void should_return_bad_request_for_empty_search_query() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = get("/products/search")
                 .param("query", "");
         ResultActions resultActions = mockMvc.perform(requestBuilder);
