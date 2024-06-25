@@ -131,7 +131,7 @@ Request: `/products/search?query=red+finish`
 ]
 ```
 
-Here is an explanation behind results older.
+#### Here is an explanation behind results order:
 
 Query text was `"red finish"`.
 
@@ -139,8 +139,10 @@ Tokenizer tokenizes query into `["red", "finish"]`.
 
 Algorithm goes through all products and tokenizes product's name and description.
 
-For each match in the name (eg. there is a word "red" in the product's name), product gets 2 points.
+For better accuracy, I'm using a bidirectional matching approach which basically means "red" and "redhat" would be a match
+because one is a subset of the other.
+For this to work we have to do it both ways. First is checking if query token is subset of product parameter token and then vice versa.
+That means if we have exact match, eg. "red" and "red", that token will be counted twice. That was accidental behavior, but it actually
+works better. Exact matches should be more valuable.
 
-For each match in the description (eg. there is a word "finish" in the product's description), product gets 1 point.
-
-Products are sorted from top to bottom based on how many points they have and ones that have 0 points are excluded.
+For more test cases and exact calculation explanation, check [unit test for ProductScore class](src/test/java/com/kingict/spring/service/utils/ProductScoreUnitTest.java).
