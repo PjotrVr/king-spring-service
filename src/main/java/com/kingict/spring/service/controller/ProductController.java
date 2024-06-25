@@ -23,6 +23,11 @@ public class ProductController {
         this.productService = productService;
     }
 
+    /**
+     * Retrieves all products.
+     *
+     * @return a list of all products, or a no content status if no products are found
+     */
     @GetMapping
     public ResponseEntity<List<Product>> getProducts() {
         logger.info("Fetching all products");
@@ -35,6 +40,12 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
+    /**
+     * Retrieves a product by its ID.
+     *
+     * @param id the ID of the product to retrieve
+     * @return the product with the specified ID, or a not found status if the product does not exist
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         logger.info("Fetching product with id {}", id);
@@ -47,6 +58,11 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
+    /**
+     * Retrieves all product categories.
+     *
+     * @return a list of all categories, or a no content status if no categories are found
+     */
     @GetMapping("/categories")
     public ResponseEntity<List<String>> getCategories() {
         logger.info("Fetching all categories");
@@ -59,6 +75,14 @@ public class ProductController {
         return ResponseEntity.ok(categories);
     }
 
+    /**
+     * Filters products by category and price range.
+     *
+     * @param category the category to filter by (optional)
+     * @param lower the lower price bound (default is 0)
+     * @param upper the upper price bound (default is Double.MAX_VALUE)
+     * @return a list of products matching the criteria, or a bad request status for invalid parameters, or a no content status if no products match the criteria
+     */
     @GetMapping("/filter")
     public ResponseEntity<?> filterProducts(
             @RequestParam(required = false) String category,
@@ -82,7 +106,6 @@ public class ProductController {
                     .stream()
                     .map(String::toLowerCase)
                     .toList();
-
             if (!allCategories.contains(category)) {
                 logger.warn("Invalid category: {}", category);
                 return ResponseEntity.badRequest().body("Invalid category: " + category);
@@ -99,6 +122,12 @@ public class ProductController {
         return ResponseEntity.ok(filteredProducts);
     }
 
+    /**
+     * Searches products by a query string.
+     *
+     * @param query the search query
+     * @return a list of products matching the query, or a bad request status if the query is empty, or a no content status if no products match the query
+     */
     @GetMapping("/search")
     public ResponseEntity<?> searchProducts(@RequestParam String query) {
         if (query == null || query.trim().isEmpty()) {

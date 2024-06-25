@@ -6,7 +6,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class ProductScoreTest {
+public class ProductScoreUnitTest {
 
     private static Product product;
 

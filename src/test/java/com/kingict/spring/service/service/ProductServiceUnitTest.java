@@ -1,7 +1,5 @@
 package com.kingict.spring.service.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kingict.spring.service.model.Product;
 import com.kingict.spring.service.repository.ProductRepository;
 import jdk.jfr.Description;
@@ -27,16 +25,13 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class ProductServiceTest {
+public class ProductServiceUnitTest {
 
     @Mock
     private ProductRepository productRepository;
 
     @Mock
     private RestTemplate restTemplate;
-
-    @Mock
-    private ObjectMapper objectMapper;
 
     @InjectMocks
     private ProductService productService;

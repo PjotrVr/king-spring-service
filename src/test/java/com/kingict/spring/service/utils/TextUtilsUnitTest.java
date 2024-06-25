@@ -1,14 +1,11 @@
 package com.kingict.spring.service.utils;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-class TextUtilsTest {
+class TextUtilsUnitTest {
 
     @Test
     void should_remove_special_characters_and_spaces_in_lowercase() {
