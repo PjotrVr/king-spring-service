@@ -1,5 +1,7 @@
 # King Spring Service
 
+## About
+
 Basic middleware REST API made in Spring that fetches online product data and creates
 endpoints from which we can:
 
