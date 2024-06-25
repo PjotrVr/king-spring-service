@@ -1,5 +1,7 @@
 # King Spring Service
 
+![CI](https://github.com/PjotrVr/king-spring-service/actions/workflows/maven.yml/badge.svg?branch=main)
+
 ## About
 
 Basic middleware REST API made in Spring that fetches online product data and creates
