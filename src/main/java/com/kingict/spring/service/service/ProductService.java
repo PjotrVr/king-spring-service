@@ -37,6 +37,11 @@ public class ProductService {
         this.objectMapper = new ObjectMapper();
     }
 
+    /**
+     * Fetches products from online URL API.
+     *
+     * @return list of products
+     */
     private List<Product> fetchProductsFromApi() {
         logger.info("Fetching products from API: {}", PRODUCTS_URL);
         String rawJson = restTemplate.getForObject(PRODUCTS_URL, String.class);
@@ -65,6 +70,11 @@ public class ProductService {
         return products;
     }
 
+    /**
+     * Fetches products from database if they exist, otherwise from URL API.
+     *
+     * @return list of products
+     */
     public List<Product> getProducts() {
         logger.info("Fetching all products from the database");
         List<Product> products = productRepository.findAll();
@@ -77,14 +87,26 @@ public class ProductService {
         return products;
     }
 
+    /**
+     * Makes a list of categories from all products.
+     *
+     * @return list of categories
+     */
     public List<String> getCategories() {
         logger.info("Fetching all categories from the database");
+        // gather all categories and then remove duplicates
         return productRepository.findAll().stream()
                 .map(Product::getCategory)
                 .distinct()
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Finds a product in repository by its id.
+     *
+     * @param id id that will be used to find a specific product
+     * @return product specified by id if it exists, otherwise null
+     */
     public Product getProductById(Long id) {
         logger.info("Fetching product with id {}", id);
         return productRepository.findById(id).orElse(null);
@@ -98,6 +120,14 @@ public class ProductService {
         return product -> product.getPrice() >= lowerPrice && product.getPrice() <= upperPrice;
     }
 
+    /**
+     * Filters all products by three criteria.
+     *
+     * @param category if specified, only products of that category will pass, otherwise use all categories
+     * @param lowerPrice all products must be above or equal to this value
+     * @param upperPrice all products must be below or equal to this value
+     * @return products that pass all three criteria
+     */
     public List<Product> filterProducts(String category, Double lowerPrice, Double upperPrice) {
         logger.info("Filtering products by category = {}, lower price = {}, upper price = {}", category, lowerPrice, upperPrice);
         return productRepository.findAll().stream()
@@ -106,6 +136,15 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Searches all products and matches the query to their name and description. <br>
+     * Result is ordered list so first product is the one that matched the most with the query. <br>
+     * Last product is one that matched the least (but still matched) with the query. <br>
+     * Products that didn't match at all (had score 0) won't be included.
+     *
+     * @param query user search that will be matched to products
+     * @return ordered list of products
+     */
     public List<Product> searchProducts(String query) {
         logger.info("Searching products with query: {}", query);
         return productRepository.findAll().stream()
